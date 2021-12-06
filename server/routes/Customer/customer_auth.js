@@ -24,7 +24,7 @@ router.post("/",async (request,response)=>{
     bcrypt.hash(body.password,10).then((hash)=>{
         connection.query(sql_query,[counter,body.username,hash,hash,1],function(err,row,fields){
             if(err){
-                console.log(err)
+              response.json({error:err});
             }
         })
     })
@@ -39,7 +39,7 @@ router.post("/login",async (request,response)=>{
     var sql_query="SELECT * FROM accounts WHERE user_name=(?)"
     connection.query(sql_query,[body.username],function(err,row,fields){
       if(err){
-        console.log(err)
+        response.json({error:err});
       }else if (!row.length){
         response.json({error: "Username does not exist"})
       }else{
