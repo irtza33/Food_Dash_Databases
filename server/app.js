@@ -21,8 +21,8 @@ const Customer_Main = require('./routes/Customer/customer_main')
 app.use("/main_view",Customer_Main);
 
 
-
-
+const Common_Func = require('./routes/Common/common')
+app.use("/Common",Common_Func)
 
 const PORT = 3001
 app.listen(PORT, () => {
