@@ -13,7 +13,10 @@ router.get('/',validate_token,async (req,res)=>{
 })
 
 
-router.post("/place_order", (req,res)=>{
+
+//Orders//
+
+router.post("/place_order",validate_token, (req,res)=>{
     //Change customer name to decode from token
     const {restaurant_name,customer_name,order_status,order_price,order_quantity}=req.body
 
@@ -64,7 +67,7 @@ router.post("/place_order", (req,res)=>{
     })
 })
 
-router.get("/track_order",(req,res)=>{
+router.get("/track_order",validate_token ,(req,res)=>{
     const {order_id} =req.body
 
     let sql_query = "SELECT current_status FROM orders WHERE order_id = (?)"
@@ -79,7 +82,7 @@ router.get("/track_order",(req,res)=>{
     })
 })
 
-router.post('/cancel_order',(req,res)=>{
+router.post('/cancel_order',validate_token,(req,res)=>{
     const body = req.body
     
     let sql_query = "SELECT * FROM orders WHERE order_id = (?)"
@@ -99,5 +102,25 @@ router.post('/cancel_order',(req,res)=>{
             })
         }
     })
+})
+
+
+
+
+//Complaint
+
+router.post("/post_complaint",(req,res)=>{
+    const {user_name,restaurant_name,complaint_text}=req.body
+
+    let sql_query="INSERT INTO complaints (customer_id,restaurant_id,complaint_text) VALUES ((SELECT customer_id FROM customer WHERE customer_name = ?),(SELECT restaurant_id FROM restaurant WHERE restaurant_name = ?),?)"
+    
+    connection.query(sql_query,[user_name,restaurant_name,complaint_text],function(err,row,feild){
+        if(err){
+            res.json({error:err})
+        }else{
+            res.json({data:"Complaint Registered!"})
+        }
+    })
+
 })
 module.exports=router

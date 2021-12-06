@@ -77,4 +77,22 @@ router.post("/OrderHist", validate_token, async(req,res)=>{
 
 })
 
+router.get("/getCommission",validate_token,async(req,res)=>{
+    const {restaurant_name}=req.body
+
+    let sql_query = "SELECT SUM(total_bill) as money FROM orders WHERE restaurant_id in (SELECT restaurant_id from restaurant where restaurant_name = ?)"
+    connection.query(sql_query,restaurant_name,function(err,row,feild){
+        if(err){
+            res.json({error:err})
+        }else if (!row.length){
+            res.json({error:"No Restaurant found"})
+        }else{
+            item = row[0].money
+            item = 0.2*item
+            res.json({data:item})
+        }
+    })
+
+})
+
 module.exports = router;

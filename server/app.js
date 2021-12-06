@@ -24,6 +24,9 @@ app.use("/main_view",Customer_Main);
 const Common_Func = require('./routes/Common/common')
 app.use("/Common",Common_Func)
 
+const Admin_Func = require('./routes/Admin/admin')
+app.use("/admin",Admin_Func)
+
 const PORT = 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
