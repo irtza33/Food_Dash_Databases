@@ -22,7 +22,7 @@ router.post("/",async (request,response)=>{
     var sql_query="INSERT INTO accounts VALUES(?,?,?,?,?)"
     counter=counter+1 
     bcrypt.hash(body.password,10).then((hash)=>{
-        connection.query(sql_query,[counter,body.username,hash,hash,1],function(err,row,feilds){
+        connection.query(sql_query,[counter,body.username,hash,hash,1],function(err,row,fields){
             if(err){
                 console.log(err)
             }
@@ -37,7 +37,7 @@ router.post("/login",async (request,response)=>{
     const body=request.body
 
     var sql_query="SELECT * FROM accounts WHERE user_name=(?)"
-    connection.query(sql_query,[body.username],function(err,row,feilds){
+    connection.query(sql_query,[body.username],function(err,row,fields){
       if(err){
         console.log(err)
       }else if (!row.length){
