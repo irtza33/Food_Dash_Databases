@@ -15,9 +15,7 @@ router.post("/Fpass", async(req,res) => {
     bcrypt.hash(body.password,10).then((hash)=>{
         connection.query(sql,[hash, body.username],function(err,row,fields){
             if(err){
-                console.log(err)
-            }else{
-                res.json()
+                res.json({error:err});
             }
         })
     })
@@ -33,7 +31,7 @@ router.post("/Cpass",validate_token, async(req,res)=> {
     bcrypt.hash(body.password,10).then((hash)=>{
         connection.query(sql,[hash, decoded_value.username],function(err,row,fields){
             if(err){
-                console.log(err)
+                res.json({error:err});
             }
         })
     })
