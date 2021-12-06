@@ -23,7 +23,7 @@ const RegisterPage=()=>{
       address:address,
       dob:dob,
     }
-    axios.post('http://localhost:3001/register',newObject,{
+    axios.post('http://localhost:3001/auth',newObject,{
       headers:{'Content-Type': 'application/json; charset=UTF-8'}
     })
     .then(response =>{
