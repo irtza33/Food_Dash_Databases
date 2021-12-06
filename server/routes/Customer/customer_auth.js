@@ -28,7 +28,7 @@ router.post("/",async (request,response)=>{
             }
         })
     })
-    response.end("New User Created")
+    response.json({data:"User Created"})
 })
 
 
