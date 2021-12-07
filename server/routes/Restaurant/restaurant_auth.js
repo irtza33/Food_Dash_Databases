@@ -14,62 +14,40 @@ connection.query("SELECT MAX(account_id) as max_id from accounts",function(err,r
         counter=0
     }
 })
-
-// 1--> Customer
-// 2--> Restaurant
-// 3--> Manager
-// 4--> Cashier
+  
 
 //Register
 router.post("/",async (request,response)=>{
+    //Need Manager and Cashier Username as well
     const body = request.body
-    user_type = body.user_type
     var sql_query="INSERT INTO accounts VALUES(?,?,?,?,?)"
     counter=counter+1 
-    console.log(counter)
     bcrypt.hash(body.password,10).then((hash)=>{
-        connection.query(sql_query,[counter,body.username,hash,hash,user_type],function(err,row,fields){
+        connection.query(sql_query,[counter,body.username,hash,hash,2],function(err,row,fields){
             if(err){
               response.json({error:err});
             }else{
-              //Customer
-              if(user_type==1){
-                sql_query="INSERT INTO customer VALUES(?,?,?,?,?,?,?,?,?,?)"
-                connection.query(sql_query,[counter,body.username,body.address,body.area,body.email,body.number,body.dob,body.bank_number,body.cvv,body.expiry],function(err,row,fields){
-                  if(err){
-                    response.json({error:err})
-                  }
-                })
-              }
-              //Manager
-              if(user_type==3){
-                sql_query="INSERT INTO MANAGER VALUES(?,?,?,?,?)"
-                connection.query(sql_query,[counter,body.username,body.address,body.email,body.number],function(err,row,feilds){
-                  if(err){
-                    response.json({error:err})
-                  }
-                })
-              }
-              //Cashier
-              if(user_type==4){
-                sql_query="INSERT INTO cashier VALUES (?,?,?,?,?)"
-                connection.query(sql_query,[counter,body.username,body.address,body.email,body.number],function(err,row,feilds){
-                  if(err){
-                    response.json({error:err})
-                  }
-                })
-              }
+                sql_query = "INSERT INTO restaurant VALUES(?,?,?,?,?,?,(SELECT account_ID FROM accounts where user_name = ?),(SELECT account_ID FROM accounts where user_name = ?),1)"
+                connection.query(sql_query,[counter,body.username,body.address,body.area,body.cuisine,body.number,body.manager_name,body.cashier_name,body.open_status])
+                if(err){
+                    response.json({err:err})
+                }
             }
         })
     })
-    response.json({data:"User Created"})
+    response.json({data:"Restaurant Created"})
 })
 
 
 //Login Auth
 router.post("/login",async (request,response)=>{
     const body=request.body
+    user_type = body.user_type
 
+    if(user_type != 2){
+        response.json({error:"This is restaurant Login! Try other login"})
+        return
+    }
     var sql_query="SELECT * FROM accounts WHERE user_name=(?)"
     connection.query(sql_query,[body.username],function(err,row,fields){
       if(err){

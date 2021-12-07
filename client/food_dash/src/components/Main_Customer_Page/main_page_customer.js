@@ -8,7 +8,7 @@ import './main_page_customer.css'
 
 const goPage=()=>{
     axios.get("http://localhost:3001/main_view",
-    {headers:{'Content-Type': 'application/json; charset=UTF-8','accessToken':sessionStorage.getItem("accessToken")}})
+    {headers:{'Content-Type': 'application/json; charset=UTF-8','accessToken':localStorage.getItem("accessToken")}})
     .then(response=>{
         if(response.data.error){
             alert("You are not logged in!")

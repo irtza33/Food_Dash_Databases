@@ -1,4 +1,4 @@
-const { response } = require('express');
+const { response, application } = require('express');
 const express = require('express');
 const mysql = require('mysql2');
 const jwt_decode = require("jwt-decode");
@@ -95,4 +95,17 @@ router.get("/getCommission",validate_token,async(req,res)=>{
 
 })
 
+
+
+router.get("/get_complaints",async(req,res)=>{
+    const body =req.body
+    let sql_query="SELECT * FROM complaints WHERE restaurant_id in (SELECT restaurant_id from restaurant where restaurant_name = ?)"
+    connection.query(sql_query,[body.restaurant_name],function(err,row,feilds){
+        if(err){
+            res.json({error:err})
+        }else{
+            res.json({data:row})
+        }
+    })
+})
 module.exports = router;

@@ -1,12 +1,15 @@
 import axios from 'axios';
 import React from 'react';
-import {useState} from 'react';
+import {useState,useContext} from 'react';
+import {authContext} from '../../Helper/authContext'
 
 import './login.css';
 
 const LoginPage=()=>{
   const [username, setUserame] = useState("");
   const [password, setPassword] = useState("");
+  const {setAuthState}=useContext(authContext)
+
 
   const submitForm = (event) => {
     event.preventDefault()
@@ -21,7 +24,8 @@ const LoginPage=()=>{
       if(response.data.error){
         alert(response.data.error);
       }else if(response.data.accessToken){
-        sessionStorage.setItem("accessToken",response.data.accessToken)
+        localStorage.setItem("accessToken",response.data.accessToken)
+        setAuthState(true)
       }
     })
   };

@@ -4,6 +4,8 @@ import {
   Routes, Route, Link
 } from "react-router-dom"
 
+import {authContext} from './Helper/authContext'
+import { useState,useEffect } from 'react';
 
 import LoginPage from "./components/Login_page/login";
 import RegisterPage from './components/Register/Register_Page';
@@ -12,15 +14,38 @@ import ChangePass from './components/ChangePassword/Change_Pass';
 import Main_Page_Customer from './components/Main_Customer_Page/main_page_customer';
 
 function App() {
+  const [authState,setAuthState]=useState(false)
+
+  useEffect(()=>{
+    if(localStorage.getItem("accessToken")){
+      setAuthState(true)
+    }
+  },[])
+
+  const logout=()=>{
+    localStorage.removeItem("accessToken");
+    setAuthState(false)
+  }
+
   return (
+    <authContext.Provider value={{authState,setAuthState}} >
     <Router>
       <div>
         <Link style={{padding:5}} to='/'>Home</Link>
-        <Link style={{padding:5}} to='/login'>Login</Link>
-        <Link style={{padding:5}} to='/register'>Register</Link>
-        <Link style={{padding:5}} to='/forget_pass'>Forget Password</Link>
-        <Link style={{padding:5}} to='/change_pass'>Change Password</Link>
-        <Link style={{padding:5}} to='/main_view_customer'>Customer Page</Link>
+        {!authState ? (
+          <>
+            <Link style={{padding:5}} to='/login'>Login</Link>
+            <Link style={{padding:5}} to='/register'>Register</Link>
+          </>
+        ):(
+          <>
+            <Link style={{padding:5}} to='/forget_pass'>Forget Password</Link>
+            <Link style={{padding:5}} to='/change_pass'>Change Password</Link>
+            <Link style={{padding:5}} to='/main_view_customer'>Customer Page</Link>
+            <button onClick={logout}>Logout </button>
+          </>
+        )}
+
       </div>
 
       <Routes>
@@ -32,6 +57,7 @@ function App() {
       </Routes>
 
     </Router>
+    </authContext.Provider >
   );
 }
 
