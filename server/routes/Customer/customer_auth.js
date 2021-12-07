@@ -93,5 +93,7 @@ router.post("/login",async (request,response)=>{
   
 })
   
+// For Every page that has restricted access. 
+//Header file mey sirf token pass kerna hai.
 
 module.exports=router
