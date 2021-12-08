@@ -5,6 +5,7 @@ const jwt_decode = require("jwt-decode");
 const router = express.Router();
 const config = require('../../Config/config');
 const { validate_token } = require('../../middleware/auth_middleware');
+const bcrypt=require('bcrypt')
 const connection=config.connection;
 
 //Forgot Password
@@ -18,7 +19,7 @@ router.post("/Fpass", async(req,res) => {
             }
         })
     })
-    res.end("Password changed successfully");
+    res.json({data:"Password Changed!"});
 })
 
 //Change Password
@@ -37,4 +38,5 @@ router.post("/Cpass",validate_token, async(req,res)=> {
     res.end("Password changed successfully");
 })
 
-module.exports = router;
+
+module.exports=router

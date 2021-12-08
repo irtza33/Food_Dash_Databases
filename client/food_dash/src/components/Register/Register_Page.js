@@ -28,6 +28,10 @@ const RegisterPage=()=>{
     })
     .then(response =>{
       console.log(response.data)
+      if(response.data){
+        alert("User Created!")
+        window.location='/login'
+      }
     })
     .catch(error =>{
       console.log(error.response)
