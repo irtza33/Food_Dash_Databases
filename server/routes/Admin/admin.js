@@ -9,12 +9,15 @@ const connection=config.connection;
 
 counter = 0;
 
+
 connection.query("SELECT MAX(restaurant_id) as max_id from restaurant",function(err,row,feilds){
     counter=row[0].max_id
     if(counter==null){
         counter=0
     }
 })
+
+
 
 //Add Restaurant
 router.post("/AddR", validate_token, async(req,res)=>{
