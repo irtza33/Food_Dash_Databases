@@ -12,6 +12,8 @@ import RegisterPage from './components/Register/Register_Page';
 import ForgetPass from './components/ForgetPassword/forget_pass';
 import ChangePass from './components/ChangePassword/Change_Pass';
 import Main_Page_Customer from './components/Main_Customer_Page/main_page_customer';
+import OfferDiscount from './components/offer_discount/offer_discount';
+import OfferAdeal from './components/offer_a_deal/offer_a_deal';
 
 function App() {
   const [authState,setAuthState]=useState(false)
@@ -54,6 +56,8 @@ function App() {
         <Route path="/change_pass" element={<ChangePass/>}></Route>
         <Route path="/forget_pass" element={<ForgetPass/>}></Route>
         <Route path="/main_view_customer" element={<Main_Page_Customer/>}></Route>
+        <Route path='/offer-a-deal' element={<OfferAdeal/>}></Route>
+        <Route path='/offer_discount' element={<OfferDiscount/>}></Route>
       </Routes>
 
     </Router>
