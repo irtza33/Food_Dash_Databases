@@ -1,19 +1,14 @@
-var mysql = require('mysql2');
+var mysql = require("mysql2");
 
 config = {
-   host: 'localhost',
-   user: 'haseeb',
-   password: '1399Ahmed',
-   database: 'db'
-}
-var connection =mysql.createConnection(config); //added the line
-connection.connect(function(err){
-  if (err){
-    console.log('error connecting:' + err.stack);
-  }
-  console.log('connected successfully to DB.');
-});
+  host: "eu-cdbr-west-02.cleardb.net",
+  user: "bcba601fa4ca71",
+  password: "2ec81f29",
+  database: "heroku_d2dc49946eb7367",
+};
+var connection = mysql.createPool(config); //added the line
 
-module.exports ={
-    connection : mysql.createConnection(config) 
-} 
+
+module.exports = {
+  connection: connection,
+};

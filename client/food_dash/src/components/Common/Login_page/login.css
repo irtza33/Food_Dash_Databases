@@ -1,0 +1,68 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  background-image: url(../../../assets/Logo2.png);
+  background-repeat: no-repeat;
+  background-size: 30vh;
+}
+
+.information {
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+  align-items: center;
+  background-color: #ffb041;
+  padding-bottom: 50px;
+}
+
+label {
+  padding-top: 10px;
+}
+
+input {
+  width: 280px;
+  height: 30px;
+  font-size: 15px;
+  padding-left: 10px;
+  margin: 5px;
+}
+
+button {
+  width: 100px;
+  height: 30px;
+  margin-top: 15px;
+  align-items: center;
+  background-color: #fff;
+  color: #ffb041;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.Heading {
+  font-size: 35px;
+  color: #fff;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+.Text {
+  font-size: 17px;
+  color: #fff;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+.Title {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  font-size: 45px;
+  color: #ffb041;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}

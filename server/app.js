@@ -30,6 +30,13 @@ app.use("/res_disc/",Rest_disc)
 const Customer_Main = require('./routes/Customer/customer_main')
 app.use("/main_view",Customer_Main);
 
+//Customer Shopping
+const Customer_Shopping=require('./routes/Customer/customer_shopping')
+app.use('/shopping',Customer_Shopping)
+
+//Main Page Restaurant
+const Restaurant_Main = require('./routes/Restaurant/restaurant_main')
+app.use('/rest_main',Restaurant_Main)
 
 const Common_Func = require('./routes/Common/common')
 app.use("/Common",Common_Func)
@@ -37,8 +44,8 @@ app.use("/Common",Common_Func)
 const Admin_Func = require('./routes/Admin/admin')
 app.use("/admin",Admin_Func)
 
-const PORT = 3001
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
+const port_two = (process.env.PORT) || 5000
+app.listen(port_two, () => {
+  console.log(`Server running on port ${port_two}`)
 })
 
